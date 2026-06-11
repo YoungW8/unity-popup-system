@@ -14,7 +14,7 @@ A lightweight, self-contained popup management system for Unity UI, extracted fr
 ## Structure
 
 ```
-PopupController.cs   # Singleton controller: show/queue/close logic, fade overlay, gold counter
+PopupController.cs   # Controller: show/queue/close logic, fade overlay, gold counter
 Popup.cs             # Abstract base class for all popups
 ```
 
@@ -25,7 +25,7 @@ Popup.cs             # Abstract base class for all popups
    - Add a `Canvas` (Screen Space – Camera or Overlay) with a child layout `Transform` that will hold popup instances.
    - Add `PopupController` to the root object and assign: the canvas, the fade overlay object, the gold counter object and the popup layout transform.
    - Set **Popup Prefabs Path** — a path inside a `Resources` folder where popup prefabs live (e.g. `Popups/`).
-3. The controller marks itself `DontDestroyOnLoad`. There is intentionally no singleton — keep a reference to it (assign it in the inspector or hand it out from your bootstrapper).
+3. The controller marks itself `DontDestroyOnLoad`. How you access it is up to you — store the reference wherever it fits your architecture (an inspector field, your bootstrapper, a DI container), or expose it as a static instance yourself if that suits your project better.
 4. If the canvas is in camera space, call `SetCamera(camera)` after each scene load.
 
 ## Creating a popup
