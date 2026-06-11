@@ -30,21 +30,17 @@ public class PopupController : MonoBehaviour
 
         if (!popup) return;
 
-        if (popup)
+        _goldCounter.SetActive(popup.GoldCounter);
+        FadeActive(popup.Fade);
+
+        foreach (KeyValuePair<string, Popup> otherCreatedPopup in _createdPopups)
         {
-            _goldCounter.SetActive(popup.GoldCouter);
-            FadeActive(popup.Fade);
-
-            foreach (KeyValuePair<string, Popup> otherCreatedPopup in _createdPopups)
+            if (otherCreatedPopup.Value.open & otherCreatedPopup.Value != popup)
             {
-                if (otherCreatedPopup.Value.open & otherCreatedPopup.Value != popup)
-                {
-                    otherCreatedPopup.Value.Close(false);
-                }
+                otherCreatedPopup.Value.Close();
             }
-            popup.Show(onPopupClose);
-
         }
+        popup.Show(onPopupClose);
 
     }
 
@@ -90,20 +86,27 @@ public class PopupController : MonoBehaviour
         _fade.SetActive(active);
     }   
 
-    public void AddPopupInQueue(PopupShowParams parametrs)
+    public void AddPopupInQueue(PopupShowParams parameters)
     {
-        _popupsQueue.Add(parametrs);
+        _popupsQueue.Add(parameters);
     }
 
 
     public void ShowQueuePopups()
     {
         _goldCounter.SetActive(false);
-        if (_popupsQueue.Count > 0)
+        while (_popupsQueue.Count > 0)
         {
-            Popup popup = GetPopup(_popupsQueue[0].name);            
-            ShowPopup(popup.name, _popupsQueue[0].onCloseAction);
-            _popupsQueue.Remove(_popupsQueue[0]);
+            PopupShowParams next = _popupsQueue[0];
+            _popupsQueue.RemoveAt(0);
+
+            if (GetPopup(next.name))
+            {
+                ShowPopup(next.name, next.onCloseAction);
+                return;
+            }
+
+            Debug.LogError($"Popup prefab not found, skipping - {next.name}");
         }
     }
 

@@ -15,7 +15,7 @@ public abstract class Popup : MonoBehaviour
     public bool open { get; private set; }
     private Action _onClose;
 
-    public bool GoldCouter => _goldCounter;
+    public bool GoldCounter => _goldCounter;
     public bool Fade => _fade;
 
     public void Init(PopupController popupController)
@@ -40,7 +40,7 @@ public abstract class Popup : MonoBehaviour
 
     public void Show(Action actionOnClose)
     {
-        if (ShowRequierment())
+        if (ShowRequirement())
         {
             open = true;
 
@@ -59,14 +59,14 @@ public abstract class Popup : MonoBehaviour
 
     }
 
-    public Coroutine Close(bool hideFade)
+    public Coroutine Close()
     {
         open = false;
 
-        if (gameObject.active)
+        if (gameObject.activeSelf)
         {
-            return StartCoroutine(CloseCoroutine(hideFade));
-        }           
+            return StartCoroutine(CloseCoroutine());
+        }
         else
         {
             _onClose?.Invoke();
@@ -77,7 +77,7 @@ public abstract class Popup : MonoBehaviour
 
     }
 
-    public IEnumerator CloseCoroutine(bool hideFade)
+    public IEnumerator CloseCoroutine()
     {
         Coroutine closeAnimationCoroutine = null;
 
@@ -93,7 +93,7 @@ public abstract class Popup : MonoBehaviour
         gameObject.SetActive(false);           
     }    
     
-    public abstract bool ShowRequierment();
+    public abstract bool ShowRequirement();
     protected abstract void ChangeValues();
     protected abstract void ShowEvent();
     protected abstract void CloseEvent();

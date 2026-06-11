@@ -9,7 +9,7 @@ A lightweight, self-contained popup management system for Unity UI, extracted fr
 - **Per-popup close callbacks** — pass an `Action` to `ShowPopup` and it is invoked when that popup closes.
 - **Popup queue** — enqueue several popups (`AddPopupInQueue`), each with its own close callback; they are shown one after another as the previous one closes.
 - **Per-popup configuration** — whether a popup needs the fade overlay and the gold counter is configured on the popup prefab itself (serialized fields of `Popup`), not passed on every call.
-- **Template-method base class** — concrete popups inherit from `Popup` and implement a small set of hooks (`ShowRequierment`, `ChangeValues`, `ShowEvent`, `CloseEvent`, button handlers), while the base class wires up the buttons and handles open/close state.
+- **Template-method base class** — concrete popups inherit from `Popup` and implement a small set of hooks (`ShowRequirement`, `ChangeValues`, `ShowEvent`, `CloseEvent`, button handlers), while the base class wires up the buttons and handles open/close state.
 
 ## Structure
 
@@ -35,15 +35,15 @@ Popup.cs             # Abstract base class for all popups
 ```csharp
 public class MyPopup : Popup
 {
-    public override bool ShowRequierment() => true; // condition to allow showing
+    public override bool ShowRequirement() => true; // condition to allow showing
 
     protected override void ChangeValues() { }      // refresh displayed data
     protected override void ShowEvent() { }         // on opened
     protected override void CloseEvent() { }        // on closed
 
-    protected override void CoreBtn() { Close(true); }   // primary button
+    protected override void CoreBtn() { Close(); }       // primary button
     protected override void AdditionalBtn() { }          // secondary button
-    protected override void CloseBtn() { Close(true); }  // close button
+    protected override void CloseBtn() { Close(); }      // close button
 }
 ```
 
