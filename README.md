@@ -2,6 +2,8 @@
 
 A lightweight, self-contained popup management system for Unity UI, battle-tested in a published mobile game. No third-party dependencies.
 
+**Honest positioning:** this is not a universal UI framework — it was written a while ago to fit the requirements of specific games, and it has needed little rework since because it simply did its job reliably. Its main limitation is the lack of a popup stack: opening a popup closes any other open one, so "popup over popup" with back navigation is not supported — none of the games needed it.
+
 ## Features
 
 - **Centralized popup management** — a single `PopupController` owns all popups, the fade overlay and the show queue.
