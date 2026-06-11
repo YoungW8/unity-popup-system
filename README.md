@@ -1,6 +1,6 @@
 # Unity Popup System
 
-A lightweight, self-contained popup management system for Unity UI, extracted from a published mobile solitaire game. No third-party dependencies.
+A lightweight, self-contained popup management system for Unity UI, battle-tested in a published mobile game. No third-party dependencies.
 
 ## Features
 
